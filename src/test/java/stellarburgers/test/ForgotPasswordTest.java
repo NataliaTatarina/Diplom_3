@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
@@ -21,23 +22,24 @@ public class ForgotPasswordTest extends AbstractTest {
         }
         driver = new ChromeDriver();
         setWebDriver(driver);
-        // Отрытие главной страницы
+        // Отрытие главной страицы
         mainPage = open("https://stellarburgers.nomoreparties.site", MainPage.class);
     }
 
     @After
     public void closeDriverAndDeleteUser() {
-       driver.quit();
+        driver.quit();
     }
 
-    // Авторизация по кнопке "Войти в аккаунт" на главной форме
+    // Переход на форму восстановления пароля с главной формы
     @Test
+    @DisplayName("Переход на станицу восстановления пароля с главной формы")
     public void getToForgotPasswordPageFromLoginTest() {
         // Нажать кнопку "Войти в аккаунт"
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
-        // Нажать ссылку "Восстановаить пароль"
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
+        // Нажать кнопку "Войти в аккаунт"
         forgotPasswordPage = loginPage.linkRestorePasswordClick();
-        // Убедиться, что открылась страница с восстановлением пароля
+        // Убедиться, что открылась форма восстановленя пароля
         MatcherAssert.assertThat(
                 "Mistake testing - temp page is not restore password form",
                 forgotPasswordPage.getTitleRestorePassword().getText(),

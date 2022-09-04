@@ -1,6 +1,7 @@
 package stellarburgers.pageobject;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -43,6 +44,7 @@ public class RegisterPage {
     private SelenideElement linkEnter;
 
     // Заполнить поля формы регистрации и нажать кнопку "Зарегистрироваться"
+    @Step("Заполнить поля формы регистрации и нажать кнопку \"Зарегистрироваться\"")
     public void fillFieldsAndButtonClickRegistration(String userName, String userEmail, String userPassword) {
         fieldName.setValue(userName);
         fieldEmail.setValue(userEmail);
@@ -51,16 +53,19 @@ public class RegisterPage {
     }
 
     // Нажать на ссылку "Личный кабинет"
+    @Step("Нажать на ссылку \"Личный кабинет\" на форме регистрации")
     public void headerLinkPersonalCabinetClick() {
         headerLinkPersonalCabinet.click();
     }
 
     // Нажать на логотип StellarBurgers
+    @Step("Нажать на логотип StellarBurgers на форме регистрации")
     public void stellarBurgersLogoClick() {
         stellarBurgersLogo.click();
     }
 
     // Нажать ссылку "Войти"
+    @Step("Нажать на ссылку \"Войти\" на форме регистрации")
     public void linkEnterClick() { linkEnter.click();
     }
 

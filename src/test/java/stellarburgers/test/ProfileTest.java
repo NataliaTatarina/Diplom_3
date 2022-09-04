@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.After;
@@ -16,7 +17,7 @@ import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 public class ProfileTest extends AbstractTest {
     // Открытие страницы перед проведением тестов
     @Before
-    public void startMainPageAndCreateUser() {
+    public void startMainPageAndCreateUser() throws InterruptedException {
         // Выбор браузера
         if (useYandex) {
             System.setProperty("webdriver.chrome.driver", "C:\\WebDriver\\yandexdriver\\yandexdriver.exe");
@@ -26,7 +27,7 @@ public class ProfileTest extends AbstractTest {
         // Отрытие главной страницы
         mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
         // Создать учетную запись пользователя
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
         registerPage = loginPage.linkGoToRegistrationClick();
         registerPage.fillFieldsAndButtonClickRegistration(userName, userEmail, userPassword);
         // Авторизация - ввести корректные логин и пароль, нажать "Войти"
@@ -45,6 +46,7 @@ public class ProfileTest extends AbstractTest {
 
     // Выход из аккаунта по ссылке "Выход" в "Личном кабинете"
     @Test
+    @DisplayName("Выход из аккаунта по ссылке \"Выход\" в \"Личном кабинете\"")
     public void linkExitClickTest() {
         // Нажать ссылку "Личный кабинет"
         profilePage = mainPage.headerLinkPersonalCabinetClickForAuthorizedUser();
@@ -59,6 +61,7 @@ public class ProfileTest extends AbstractTest {
 
     // Переход из "Личного кабинета" в "Конструктор" по клику на логотип
     @Test
+    @DisplayName("Переход из \"Личного кабинета\" в \"Конструктор\" по клику на логотип")
     public void linkLogoClickTest() {
         // Нажать ссылку "Личный кабинет"
         profilePage = mainPage.headerLinkPersonalCabinetClickForAuthorizedUser();
@@ -73,6 +76,7 @@ public class ProfileTest extends AbstractTest {
 
     // Переход из "Личного кабинета" в "Конструктор" по клику на ссылку "Конструкктор"
     @Test
+    @DisplayName("Переход из \"Личного кабинета\" в \"Конструктор\" по клику на ссылку \"Конструкктор\"")
     public void linkConstructorClickTest() {
         // Нажать ссылку "Личный кабинет"
         profilePage = mainPage.headerLinkPersonalCabinetClickForAuthorizedUser();

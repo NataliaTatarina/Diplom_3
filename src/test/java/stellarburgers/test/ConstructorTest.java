@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,6 +34,7 @@ public class ConstructorTest extends AbstractTest {
 
     // Проверка активизации ссылки "Начинки"
     @Test
+    @DisplayName("Активизация ссыки \"Начинки\"")
     public void linkToppingsClickTest() throws InterruptedException {
         mainPage.getLinkToppings().click();
         Assert.assertTrue(
@@ -43,6 +45,7 @@ public class ConstructorTest extends AbstractTest {
 
     // Проверка активизации ссылки "Соусы"
     @Test
+    @DisplayName("Активизация ссылки \"Соусы\"")
     public void linkSaucesClickTest() {
         mainPage.getLinkSauces().click();
         Assert.assertTrue(
@@ -52,7 +55,8 @@ public class ConstructorTest extends AbstractTest {
 
     // Проверка активизации ссылки "Булки"
     @Test
-    public void linkBunsClickTest() {
+    @DisplayName("Активизация ссылки \"Булки\"")
+    public void linkBunsClickTest() throws InterruptedException {
         mainPage.getLinkToppings().click();
         mainPage.getLinkBuns().click();
         TimeUnit.SECONDS.sleep(3);

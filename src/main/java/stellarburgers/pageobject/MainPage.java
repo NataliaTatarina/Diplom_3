@@ -2,12 +2,10 @@ package stellarburgers.pageobject;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import dev.failsafe.internal.util.Assert;
+import io.qameta.allure.Step;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -69,7 +67,8 @@ public class MainPage {
         buttonEntrance.click();
     }
 
-    // Нажать ссылку "Личный кабинет", перейти на страницу авторизации
+    // Нажать ссылку "Личный кабинет", перейти на форму авторизации
+    @Step("Нажать ссылку \"Личный кабинет\" на главной странице")
     public LoginPage headerLinkPersonalCabinetClickWithountAuthorization() {
         // Нажать кнопку "Личный кабинет"
         headerLinkPersonalCabinet.click();
@@ -77,8 +76,9 @@ public class MainPage {
         return loginPage;
     }
 
-    // Нажать кнопку "Войти в аккаунт" на главной странице
+    // Нажать кнопку "Войти в аккаунт" на главной странцие
     // Перейти на форму профиля
+    @Step("Нажать кнопку \"Войти в аккаунт\" на главной странице. Пользователь авторизирован")
     public ProfilePage headerLinkPersonalCabinetClickForAuthorizedUser() {
         // Нажать кнопку "Личный кабинет"
         headerLinkPersonalCabinet.click();
@@ -89,12 +89,13 @@ public class MainPage {
 
     // Нажать кнопку "Войти в аккаунт" на главной странице
     // Перейти на форму авторизации
-    public LoginPage buttonEntranceClickReturnLoginPage() {
+    @Step("Нажать кнопку \"Войти в аккаунт\" на главной странице. Пользователь неавторизирован")
+    public LoginPage headerLinkPersonalCabinetClickForUserWithoutAuthorization() {
         // Нажать кнопку "Войти в аккаунт"
         buttonEntrance.click();
         // Создать PO для LogimPage
         LoginPage loginPage = Selenide.page(LoginPage.class);
-        // Убедиться, что открылась форма входа - есть надпись "Вход"
+        // Убедиться, что открылась форме входа - есть надпись "Вход"
         MatcherAssert.assertThat(
                 "Mistake testing - temp page is not authorization form",
                 loginPage.getTitleEntrance().getText(),
@@ -102,6 +103,7 @@ public class MainPage {
         return loginPage;
     }
 
+    @Step("Нажать ссылку \"Личный кабинет\" на главной странице")
     public void headerLinkPersonalCabinetClick() {
         headerLinkPersonalCabinet.click();
     }

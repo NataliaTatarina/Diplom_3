@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
@@ -28,38 +29,40 @@ public class LoginTest extends AbstractTest {
         // Отрытие главной страницы
         mainPage = open("https://stellarburgers.nomoreparties.site", MainPage.class);
         // Создать учетную запись пользователя
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
         registerPage = loginPage.linkGoToRegistrationClick();
         registerPage.fillFieldsAndButtonClickRegistration(userName, userEmail, userPassword);
         registerPage.stellarBurgersLogoClick();
     }
 
     @After
-    public void closeDriverAndDeleteUser() {
+    public void closeDriverAndDeleteUser() throws InterruptedException {
         loginPage.fillFieldsAndClickButtonAuthorization(userEmail, userPassword);
         MatcherAssert.assertThat(
                 "Mistake testing - temp page is not main form",
                 mainPage.getButtonEntrance().getText(),
                 equalTo("Оформить заказ"));
-                driver.quit();
+        driver.quit();
         // Удалить пользователя
         DeleteUserAPI.deleteUserAPI(userEmail, userPassword);
     }
 
-    // Авторизация по кнопке "Войти в аккаунт" на главной форме
+    // Авторизация по кнопке "Войти в аккаунт" на главной странице
     @Test
+    @DisplayName("Авторизация по кнопке \"Войти в аккаунт\" на главной странице")
     public void getToLoginPageFromMainPageByButtonEnterAccountTest() {
         // Нажать кнопку "Войти в аккаунт"
         mainPage.buttonEntranceClick();
-        // Проверить, что текущая страница - форма авторизации
+        // Проверить, что текущая форма - форма авторизации
         MatcherAssert.assertThat(
                 "Mistake testing - temp page is not login form",
                 loginPage.getTitleEntrance().getText(),
                 equalTo("Вход"));
     }
 
-    // Авторизация по кнопке "Личный кабинет" на главной форме
+    // Авторизация по кнопке "Личный кабинет" на главной странице
     @Test
+    @DisplayName("Авторизация по кнопке \"Личный кабинет\" на главной странице")
     public void getToLoginPageFromMainPageByLinkPersonalAccountTest() {
         // Нажать кнопку "Личный кабинет"
         mainPage.headerLinkPersonalCabinetClick();
@@ -70,12 +73,13 @@ public class LoginTest extends AbstractTest {
                 equalTo("Вход"));
     }
 
-    // Авторизация по кнопке "Личный кабинет" на форме регистрации
+    // Авторизация по кнопке "Личный кабинет" на форма регистрации
+    @DisplayName("Авторизация по кнопке \"Личный кабинет\" на форме регистрации")
     @Test
     public void getToLoginPageFromRegisterPageByLinkPersonalAccountTest() {
-        // Открыть страницу регистрации
+        // Открыть форму регистрации
         RegisterPage registerTest = open("https://stellarburgers.nomoreparties.site/register", RegisterPage.class);
-        // Проверить, что перешли на страницу регистрации
+        // Проверить, что перешли на форму регистрации
         MatcherAssert.assertThat(
                 "Mistake opening registration form",
                 registerPage.getTitleRegistration().getText(),
@@ -91,8 +95,9 @@ public class LoginTest extends AbstractTest {
 
     // Авторизация по ссылке "Войти" на форме регистрации
     @Test
+    @DisplayName("Авторизация по ссылке \"Войти\" на форме регистрации")
     public void getToLoginPageFromRegisterPageByLinkEnterTest() {
-        // Открыть страницу регистрации
+        // Открыть форму регистрации
         RegisterPage registerTest = open("https://stellarburgers.nomoreparties.site/register", RegisterPage.class);
         // Нажать ссылку "Войти" на форме регистрации
         registerPage.getLinkEnter().scrollIntoView(true);
@@ -105,11 +110,11 @@ public class LoginTest extends AbstractTest {
     }
 
     // Авторизация по кнопке "Личный кабинет" на форме восстановления пароля
+    @DisplayName("Авторизация по кнопке \"Личный кабинет\" на форме восстановления пароля")
     @Test
     public void getToLoginPageFromForgotPasswordPageByLinkPersonalAccountTest() {
-        // Открыть страницу регистрации
-        ForgotPasswordPage forgotPasswordPage = open("https://stellarburgers.nomoreparties.site/forgot-password", ForgotPasswordPage.class);
-        // Нажать ссылку "Личный кабинет" на форме восстановления пароля
+        // Открыть форму восстановления пароля
+        ForgotPasswordPage forgotPasswordPage = open("https://stellarburgers.nomoreparties.site/forgot-password", ForgotPasswordPage.class);        // Нажать ссылку "Личный кабинет" на форме восстановления пароля
         forgotPasswordPage.headerLinkPersonalCabinetClick();
         // Проверить, что текущая страница - форма авторизации
         MatcherAssert.assertThat(
@@ -119,20 +124,17 @@ public class LoginTest extends AbstractTest {
     }
 
     // Авторизация по ссылке "Войти" на форме восстановления пароля
+    @DisplayName("Авторизация по ссылке \"Войти\" на форме восстановления пароля")
     @Test
     public void getToLoginPageFromForgotPasswordPageByLinkEnterTest() {
-        // Открыть страницу регистрации
+        // Открыть форму регистрации
         ForgotPasswordPage forgotPasswordPage = open("https://stellarburgers.nomoreparties.site/forgot-password", ForgotPasswordPage.class);
-       // Нажать ссылку "Войти" на форме восстановления пароля
+        // Нажать ссылку "Войти" на форме восстановления пароля
         forgotPasswordPage.linkEnterClick();
-
-        // Проверить, что текущая страница - форма авторизации
+        // Проверить, что текущая форма - форма авторизации
         MatcherAssert.assertThat(
                 "Mistake testing - temp page is not login form",
                 loginPage.getTitleEntrance().getText(),
                 equalTo("Вход"));
-
     }
-
-
 }

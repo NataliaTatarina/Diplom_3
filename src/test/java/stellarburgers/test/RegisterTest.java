@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Assert;
@@ -34,11 +35,11 @@ public class RegisterTest extends AbstractTest {
 
     // Успешная регистрация
     @Test
+    @DisplayName("Успешная регистрация")
     public void successRegistrationTest() {
         // Перейти к регистрации по клику на "Войти в аккаунт"
         // Убедиться, что открылась форма входа - есть надпись "Вход"
-
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
         // Нажать ссылку - "Зарегистрироваться"
         registerPage = loginPage.linkGoToRegistrationClick();
         // Заполнить корректно поля "Имя", "Email", "Пароль"
@@ -49,16 +50,17 @@ public class RegisterTest extends AbstractTest {
                 "Mistake testing - temp page is not authorization form",
                 loginPage.getTitleEntrance().getText(),
                 equalTo("Вход"));
-        // Удалить пользователя*/
+        // Удалить пользователя
         DeleteUserAPI.deleteUserAPI(userEmail, userPassword);
     }
 
     // Попытка регистрации с некорректным паролем
     @Test
+    @DisplayName("Регистрация с некорректным паролем")
     public void registrationWithShortPasswordFallsTest() {
         // Перейти к регистрации по клику на "Войти в аккаунт"
         // Убедиться, что открылась форма входа - есть надпись "Вход"
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
         // Нажать ссылку - "Зарегистрироваться"
         registerPage = loginPage.linkGoToRegistrationClick();
         // Заполнить корректно поля "Имя", "Email"

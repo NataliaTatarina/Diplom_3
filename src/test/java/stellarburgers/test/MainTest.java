@@ -1,5 +1,6 @@
 package stellarburgers.test;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
@@ -27,7 +28,7 @@ public class MainTest extends AbstractTest {
         // Отрытие главной страницы
         mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
         // Создать учетную запись пользователя
-        loginPage = mainPage.buttonEntranceClickReturnLoginPage();
+        loginPage = mainPage.headerLinkPersonalCabinetClickForUserWithoutAuthorization();
         registerPage = loginPage.linkGoToRegistrationClick();
         registerPage.fillFieldsAndButtonClickRegistration(userName, userEmail, userPassword);
 
@@ -39,8 +40,9 @@ public class MainTest extends AbstractTest {
     }
 
     // Проверка перехода в личный кабинет по ссылке в верхнем заголовке "Личный кабинет"
-    // Пользователь не авторизирован - должны быть перенеправлены на страницу авторизации
+    // Пользователь не авторизирован - должны быть перенеправлены на форму авторизации
     @Test
+    @DisplayName("Проверка перехода в личный кабинет по ссылке \"Личный кабинет\". Без авторизации")
     public void clickPersonalCabinetWithoutAuthorizationTest() {
         mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
         // Нажать ссылку "Личный кабинет"
@@ -53,9 +55,10 @@ public class MainTest extends AbstractTest {
     }
 
     // Проверка перехода в личный кабинет по ссылке в верхнем заголовке "Личный кабинет"
-    // Пользователь авторизирован - должны быть перенаправлены на страницу с профилем пользователя
+    // Пользователь авторизирован - должны быть перенаправлены на форму с профилем пользователя
     @Test
-    public void clickPersonalCabinetWithAuthorizationTest() {
+    @DisplayName("Проверка перехода в личный кабинет по ссылке \"Личный кабинет\". Пользователь авторизирован")
+    public void clickPersonalCabinetWithAuthorizationTest() throws InterruptedException {
         // Авторизация - ввести корректные логин и пароль, нажать "Войти"
         loginPage = open("https://stellarburgers.nomoreparties.site/login", LoginPage.class);
         loginPage.fillFieldsAndClickButtonAuthorization(userEmail, userPassword);

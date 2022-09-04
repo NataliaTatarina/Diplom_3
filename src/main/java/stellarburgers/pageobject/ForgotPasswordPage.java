@@ -2,6 +2,7 @@ package stellarburgers.pageobject;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
 public class ForgotPasswordPage {
@@ -17,10 +18,12 @@ public class ForgotPasswordPage {
     @FindBy(xpath = "//div/main/div/h2")
     private SelenideElement titleRestorePassword;
 
+    @Step("Нажать ссылку \"Личный кабинет\" на форме восстановления пароля")
     public void headerLinkPersonalCabinetClick() {
         headerLinkPersonalCabinet.click();
     }
 
+    @Step("Нажать ссылку \"Войти\" на форме восстановления пароля")
     public void linkEnterClick() {
         linkEnter.scrollIntoView(true);
         linkEnter.shouldBe(Condition.interactable);

@@ -3,6 +3,7 @@ package stellarburgers.pageobject;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -39,7 +40,8 @@ public class LoginPage {
 
     // Заполнить поля Email и Пароль на форме авторизации
     // Нажать кнопку "Войти" на форме авторизации
-    public void fillFieldsAndClickButtonAuthorization(String userEmail, String userPassword) {
+   @Step("Заполнить поля Email и Пароль на форме авторизации и нажать кнопку \"Войти\"")
+    public void fillFieldsAndClickButtonAuthorization(String userEmail, String userPassword) throws InterruptedException {
         TimeUnit.SECONDS.sleep(3);
         fieldEmailAuthorization.setValue(userEmail);
         fieldPasswordAuthorization.setValue(userPassword);
@@ -50,6 +52,7 @@ public class LoginPage {
 
     // Нажать сслыку "Восстановить пароль"
     // Перейти на форму восстановления пароля
+    @Step("Нажать сслыку \"Восстановить пароль\" на форме авторизации")
     public ForgotPasswordPage linkRestorePasswordClick() {
         linkRestorePassword.scrollIntoView(true);
         linkRestorePassword.shouldBe(Condition.interactable);
@@ -60,11 +63,12 @@ public class LoginPage {
 
     // Нажать ссылку "Зарегистироваться" в нижнем меню формы входа в профиль
     // Перейти на форму регистрации
+    @Step("Нажать сслыку \"Зарегистироваться\" на форме авторизации")
     public RegisterPage linkGoToRegistrationClick() {
         linkGoToRegistration.click();
         // Создать PO для RegisterPage
         RegisterPage registerPage = Selenide.page(RegisterPage.class);
-        // Убедиться, что открылась форма регистрации - есть надпись "Регистрация"
+        // Убедиться, что открылась форме регистрации - есть надпись "Регистрация"
         MatcherAssert.assertThat(
                 "Mistake opening registration form",
                 registerPage.getTitleRegistration().getText(),

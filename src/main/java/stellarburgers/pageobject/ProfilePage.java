@@ -1,6 +1,7 @@
 package stellarburgers.pageobject;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -23,16 +24,19 @@ public class ProfilePage {
     private SelenideElement linkConstructor;
 
     // Нажать ссылку "Выход" в личном кабинете
+    @Step("Нажать ссылку \"Выход\" в личном кабинете")
     public void linkExitPersonalCabinetClick() {
         linkExitPersonalCabinet.click();
     }
 
     // Нажать на логотип StellarBurger в верхнем меню
+    @Step("Нажать на логотип StellarBurger в личном кабинете")
     public void stellarBurgersLogoClick() {
         stellarBurgersLogo.click();
     }
 
     // Нажать на ссылку "Конструктор" в личном кабинете
+    @Step("Нажать ссылку \"Конструктор\" в личном кабинете")
     public void linkConstructorClick() {
         linkConstructor.click();
     }
